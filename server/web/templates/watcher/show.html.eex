@@ -1,0 +1,33 @@
+<h2>Show watcher</h2>
+
+<ul>
+
+  <li>
+    <strong>Course:</strong>
+    <%= @watcher.course %>
+  </li>
+
+  <li>
+    <strong>Section:</strong>
+    <%= @watcher.section %>
+  </li>
+
+  <li>
+    <strong>Enabled:</strong>
+    <%= @watcher.enabled %>
+  </li>
+
+  <li>
+    <strong>Acknowledged:</strong>
+    <%= @watcher.acknowledged %>
+  </li>
+
+  <li>
+    <strong>User:</strong>
+    <%= @watcher.user_id %>
+  </li>
+
+</ul>
+
+<%= link "Edit", to: watcher_path(@conn, :edit, @watcher) %>
+<%= link "Back", to: watcher_path(@conn, :index) %>

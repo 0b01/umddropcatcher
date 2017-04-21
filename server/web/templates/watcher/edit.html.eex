@@ -1,0 +1,6 @@
+<h2>Edit watcher</h2>
+
+<%= render "form.html", changeset: @changeset,
+                        action: watcher_path(@conn, :update, @watcher) %>
+
+<%= link "Back", to: watcher_path(@conn, :index) %>
