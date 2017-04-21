@@ -1,13 +1,12 @@
-<h2>Listing watchers</h2>
+<h2>Watchers:</h2>
 
 <table class="table">
   <thead>
     <tr>
       <th>Course</th>
       <th>Section</th>
-      <th>Enabled</th>
-      <th>Acknowledged</th>
-      <th>User</th>
+      <th>Open Seats</th>
+      <th>Waitlist</th>
 
       <th></th>
     </tr>
@@ -17,12 +16,13 @@
     <tr>
       <td><%= watcher.course %></td>
       <td><%= watcher.section %></td>
-      <td><%= watcher.enabled %></td>
-      <td><%= watcher.acknowledged %></td>
-      <td><%= watcher.user_id %></td>
+      <td><%= watcher.open %></td>
+      <td><%= watcher.waitlist %></td>
 
       <td class="text-right">
-        <%= link "Show", to: watcher_path(@conn, :show, watcher), class: "btn btn-default btn-xs" %>
+        <%= if not watcher.acknowledged do %>
+          <%= link "Acknowledge", to: watcher_path(@conn, :ack, watcher), class: "btn btn-default btn-xs btn-warning" %>
+        <% end %>
         <%= link "Edit", to: watcher_path(@conn, :edit, watcher), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: watcher_path(@conn, :delete, watcher), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
       </td>

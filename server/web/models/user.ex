@@ -16,5 +16,7 @@ defmodule Server.User do
     struct
     |> cast(params, [:email, :encrypted_password, :referral])
     |> validate_required([:email, :encrypted_password, :referral])
+    |> validate_required([:email, :encrypted_password, :referral])
+    |> validate_format(:email, ~r/@.*umd\.edu/)
   end
 end

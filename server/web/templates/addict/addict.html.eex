@@ -249,11 +249,13 @@
           var name = document.getElementById('txt-name').value;
           var email = document.getElementById('txt-email').value;
           var password = document.getElementById('txt-password').value;
+          var referral = document.getElementById('txt-referral').value;
           var csrf_token = document.getElementById('csrf-token').value;
           var params = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            referral: referral
           };
           makeRequest('/register', params, csrf_token, navigateToRoot, addErrors);
         }, false);

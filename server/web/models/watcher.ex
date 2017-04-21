@@ -7,6 +7,7 @@ defmodule Server.Watcher do
     field :section, :string
     field :enabled, :boolean, default: false
     field :acknowledged, :boolean, default: false
+    field :sent, :boolean, default: false
     field :user_id, :integer
     field :open, :integer
     field :waitlist, :integer
@@ -16,8 +17,8 @@ defmodule Server.Watcher do
 
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:course, :section, :enabled, :acknowledged, :user_id, :open, :waitlist])
-    |> validate_required([:course, :section, :enabled, :acknowledged, :user_id, :open, :waitlist])
+    |> cast(params, [:course, :section, :enabled, :acknowledged, :user_id, :open, :waitlist, :sent])
+    |> validate_required([:course, :section])
     |> validate_inclusion(:course, String.split(File.read!("courses"), "\n"))
   end
 end

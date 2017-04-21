@@ -1,36 +1,49 @@
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}", name: "Phoenix!" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h2>UMD Course DropCatcher</h2>
+  <p class="lead">Get custom alerts when a spot opens up.</p>
+  <%= if not @is_logged_in do %>
+    <a href="/register"><button style="background: lightblue; width:100px; height:30px;">register</button></a>
+    <a href="/login"><button style="background:hotpink; width:100px; height:30px;">login</button></a>
+  <% else %>
+    <a href="/refer"><button style="background:lightblue; width:200px; height:30px;">Refer Friends</button></a>
+    <a href="/watcher"><button style="background:hotpink; width:100px; height:30px;">Watcher</button></a>
+    <button id="btn-logout" style="background:hotpink; width:100px; height:30px;">Logout</button>
+  <% end %>
 </div>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
-  </div>
+<h2>Welcome</h2>
+<h4>Hi, visitor,</h4>
+<h4>When someone drops a course you want to take, go ahead and snag that course under 10 seconds! It works like this: a job scrapes from testudo.umd.edu every few seconds. When a course opens, it sends you an email alert. This way, you don't have to refresh testudo all day. :) Use this time to do something productive, such as learn to program Elixir.</h4>
+<h4>This website is written on a sunny thursday afternoon as an attempt to learn the elixir programming language.</h4>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
-  </div>
-</div>
+<script>
+var btn_logout = document.getElementById("btn-logout");
+
+      if(btn_logout){
+        document.getElementById("btn-logout").addEventListener("click", function(ev) {
+          makeRequest('/logout', {}, "", navigateToRoot, null, "DELETE");
+        }, false);
+      }
+      function makeRequest(url, data, csrf_token, success_callback, failure_callback, method) {
+        method = method || "POST";
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open(method, url);
+        xmlHttp.setRequestHeader("x-csrf-token", csrf_token);
+        xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xmlHttp.onreadystatechange = function() {
+          if (xmlHttp.readyState == 4) {
+            if (xmlHttp.status >= 200 && xmlHttp.status < 400) {
+              success_callback && success_callback();
+            } else if (xmlHttp.status >= 400 && xmlHttp.status < 500){
+              failure_callback && failure_callback(JSON.parse(xmlHttp.responseText));
+            } else {
+              failure_callback && failure_callback(null);
+            }
+          }
+        }
+        xmlHttp.send(JSON.stringify(data));
+      }
+      function navigateToRoot() {
+        window.location.href = "/";
+      }
+</script>

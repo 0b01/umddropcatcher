@@ -28,4 +28,15 @@ defmodule Server.UserActions do
   def random_string(length) do
     :crypto.strong_rand_bytes(length) |> Base.url_encode64 |> binary_part(0, length)
   end
+
+  def validate({:ok, _}, %{"referral" => referral}) do
+    case Repo.get_by(Server.User, referral: referral) do
+      nil  -> {:error, [name: "Referral code does not exists."]}
+      exists -> {:ok, []}
+    end
+  end
+
+  def validate({:error, errors}, user_params) do
+    {:error, errors}
+  end
 end

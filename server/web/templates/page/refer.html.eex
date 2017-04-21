@@ -1,0 +1,9 @@
+<div class="jumbotron">
+  <h2>Your referral code:</h2>
+  <p class="lead">
+<pre>
+<%= @code %>
+</pre>
+</p>
+</div>
+

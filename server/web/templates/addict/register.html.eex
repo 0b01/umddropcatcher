@@ -15,6 +15,10 @@
           <input type="password" id="txt-password" class="addict input" required />
           <label for="txt-password" class="addict label">Password</label>
         </div>
+        <div class="addict field">
+          <input type="text" id="txt-referral" class="addict input" required />
+          <label for="txt-referral" class="addict label">Referral Code</label>
+        </div>
         <div class="addict errors"></div>
         <div class="addict modal__footer">
           <button id="btn-register" class="addict btn">Register</button>

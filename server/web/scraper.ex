@@ -3,6 +3,9 @@ defmodule Server.PeriodicallyScrape do
   require Logger
   import Ecto.Query, only: [from: 2]
   alias Server.Repo
+  @config domain: Application.get_env(:addict, :mailgun_domain),
+          key: Application.get_env(:addict, :mailgun_key)
+  use Mailgun.Client, @config
 
   def start_link do
     GenServer.start_link(__MODULE__, %{})
@@ -51,15 +54,30 @@ defmodule Server.PeriodicallyScrape do
   def updateCourses(sections) do
     Enum.map(sections, fn {courseID, open, sectionID, wlCount} ->
       watchers = Repo.all(from u in Server.Watcher, where: u.course == ^courseID and u.section == ^sectionID)
+      op = String.to_integer(open)
+      wl = String.to_integer(wlCount)
       Enum.each(watchers, fn (watcher) -> 
-        changeset = Server.Watcher.changeset(watcher, %{"open": String.to_integer(open), "waitlist": String.to_integer(wlCount)})
+        changeset = Server.Watcher.changeset(watcher, %{"open": op, "waitlist": wl})
         Repo.update(changeset)
-      end)
 
-      IO.puts sectionID 
-      IO.puts open 
+        if wl == 0 and not watcher.acknowledged and not watcher.sent do
+          mail(watcher)
+        end
+
+      end)
     end)
   end 
+
+  def mail(watcher) do
+    em = Repo.get!(Server.User, watcher.user_id).email
+    send_email to: em,
+               from: "coursedrop@umd.fyi",
+               subject: "ACTION REQUIRED: Course Drop",
+               text: "The course you wanted is now available to register: #{watcher.course} #{watcher.section}.<a href=\"https://ntst.umd.edu/testudo/#/main/dropAdd\">Testudo</a>"
+
+    changeset = Server.Watcher.changeset(watcher, %{"sent": true})
+    Repo.update(changeset)
+  end
 
   def scrape([]) do
     Logger.info "Done scraping"
@@ -67,6 +85,6 @@ defmodule Server.PeriodicallyScrape do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 100* 1000) # In 2 seconds 
+    Process.send_after(self(), :work, 20* 1000) # In 2 seconds 
   end
 end

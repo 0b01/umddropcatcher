@@ -13,21 +13,17 @@
   </li>
 
   <li>
-    <strong>Enabled:</strong>
-    <%= @watcher.enabled %>
+    <strong>Open:</strong>
+    <%= @watcher.open %>
   </li>
 
   <li>
-    <strong>Acknowledged:</strong>
-    <%= @watcher.acknowledged %>
-  </li>
-
-  <li>
-    <strong>User:</strong>
-    <%= @watcher.user_id %>
+    <strong>Waitlist:</strong>
+    <%= @watcher.waitlist %>
   </li>
 
 </ul>
 
 <%= link "Edit", to: watcher_path(@conn, :edit, @watcher) %>
+</br>
 <%= link "Back", to: watcher_path(@conn, :index) %>

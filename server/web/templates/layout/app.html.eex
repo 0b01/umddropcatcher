@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    <title>Hello Server!</title>
+    <title>Terp Course DropCatcher</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
@@ -16,7 +17,7 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+          <a class="github-button" href="https://github.com/rickyhan/umddropcatcher" data-style="mega" data-count-href="/rickyhan/umddropcatcher/stargazers" data-count-api="/repos/rickyhan/umddropcatcher#stargazers_count" data-count-aria-label="# stargazers on GitHub" aria-label="Star rickyhan/umddropcatcher on GitHub">Star</a>
           </ul>
         </nav>
         <span class="logo"></span>

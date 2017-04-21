@@ -1,5 +1,6 @@
 defmodule Server.WatcherController do
   use Server.Web, :controller
+  require Logger
   plug Addict.Plugs.Authenticated when action in [:index, :new, :create, :show, :edit, :update, :delete]
 
   alias Server.Watcher
@@ -32,6 +33,19 @@ defmodule Server.WatcherController do
   def show(conn, %{"id" => id}) do
     watcher = Repo.get!(Watcher, id)
     render(conn, "show.html", watcher: watcher)
+  end
+
+  def ack(conn, %{"id" => id}) do
+    watcher = Repo.get!(Watcher, id)
+    changeset = Watcher.changeset(watcher, %{"acknowledged": true, "sent": false})
+    case Repo.update(changeset) do
+      {:ok, watcher} ->
+        conn
+        |> put_flash(:info, "Watcher updated successfully.")
+        |> redirect(to: watcher_path(conn, :show, watcher))
+      {:error, changeset} ->
+        render(conn, "index.html", watcher: watcher, changeset: changeset)
+    end
   end
 
   def edit(conn, %{"id" => id}) do
