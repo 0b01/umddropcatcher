@@ -18,8 +18,8 @@ defmodule Server.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [mod: {Server, []},
-     applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+     applications: [:phoenix, :addict, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
+                    :phoenix_ecto, :floki, :httpoison, :mailgun, :postgrex]]
   end
 
   # Specifies which paths to compile per environment.
@@ -41,6 +41,7 @@ defmodule Server.Mixfile do
      {:addict, "~> 0.3"},
      {:httpoison, "~> 0.11.1"},
      {:floki, "~> 0.17.0"},
+     {:distillery, "~> 1.0"},
      {:mailgun, github: "chrismccord/mailgun", branch: "master", override: true}]
   end
 

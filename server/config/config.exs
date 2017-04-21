@@ -33,9 +33,9 @@ config :addict,
   user_schema: Server.User,
   repo: Server.Repo,
   post_login: &(Server.UserActions.login/3),
-  post_register: &(Server.UserActions.register/3)
-#   from_email: "rickylqhan@gmail.com", # CHANGE THIS
-#   mailgun_domain: "https://api.mailgun.net/v3/sandboxbe039a6709c648889dfd075352adc009.mailgun.org",
-#   mailgun_key: "key-5ecc689692d91436c8a6be319f4e4be2",
-#   mail_service: :mailgun
-
+  post_register: &(Server.UserActions.register/3),
+  extra_validation: &(Server.UserActions.validate/2),
+  from_email: "coursedrop@umd.fyi",
+  mailgun_domain: "https://api.mailgun.net/v3/mg.umd.fyi",
+  mailgun_key: "key-5ecc689692d91436c8a6be319f4e4be2",
+  mail_service: :mailgun

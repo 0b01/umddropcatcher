@@ -4,7 +4,6 @@ defmodule Server.UserActions do
 
   alias Server.Repo
 
-
   def login(conn, status, model) do
     IO.inspect status
     IO.inspect model
@@ -34,9 +33,5 @@ defmodule Server.UserActions do
       nil  -> {:error, [name: "Referral code does not exists."]}
       exists -> {:ok, []}
     end
-  end
-
-  def validate({:error, errors}, user_params) do
-    {:error, errors}
   end
 end
