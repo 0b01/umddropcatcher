@@ -36,6 +36,6 @@ config :addict,
   post_register: &(Server.UserActions.register/3),
   extra_validation: &(Server.UserActions.validate/2),
   from_email: "coursedrop@umd.fyi",
-  mailgun_domain: "",
-  mailgun_key: "",
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_key: System.get_env("MAILGUN_KEY"),
   mail_service: :mailgun
