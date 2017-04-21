@@ -16,7 +16,7 @@ defmodule Server.Router do
 
   scope "/", Server do
     pipe_through :browser 
-    resources "watcher", WatcherController
+    resources "/watcher", WatcherController
 
     get "/", PageController, :index
     get "/refer", PageController, :refer

@@ -15,7 +15,8 @@ config :server, Server.Endpoint,
   secret_key_base: "2Uv+6l1Hw/JkBthq1JePMrvHRhLnR2WtT1Y1g+9xV0/9Lg/VZfqsN2gl7tkL/Kdt",
   render_errors: [view: Server.ErrorView, accepts: ~w(html json)],
   pubsub: [name: Server.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  term: "201708"
 
 # Configures Elixir's Logger
 config :logger, :console,
