@@ -1,6 +1,7 @@
 defmodule Server.UserActions do
   require Ecto.Query
   require Ecto.Changeset
+  require Logger
 
   alias Server.Repo
 
@@ -17,11 +18,15 @@ defmodule Server.UserActions do
   end
 
   def register(conn, status, model) do
-    id = Addict.Helper.current_user(conn).id
-    user = Repo.get(Server.User, id)
-    user = Ecto.Changeset.change user, referral: random_string(10)
-    Repo.update user
-    conn
+    if Addict.Helper.is_logged_in(conn) do
+      id = Addict.Helper.current_user(conn).id
+      user = Repo.get(Server.User, id)
+      user = Ecto.Changeset.change user, referral: random_string(10)
+      Repo.update user
+      conn
+    else
+      conn
+    end
   end
 
   def random_string(length) do
@@ -34,4 +39,9 @@ defmodule Server.UserActions do
       exists -> {:ok, []}
     end
   end
+
+  def validate({:error, errors}, user_params) do
+    {:error, errors}
+  end
+
 end

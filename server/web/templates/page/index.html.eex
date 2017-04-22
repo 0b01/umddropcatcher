@@ -11,10 +11,8 @@
   <% end %>
 </div>
 
-<h2>Welcome</h2>
-<h4>Hi, visitor,</h4>
-<h4>When someone drops a course you want to take, go ahead and snag that course under 10 seconds! It works like this: a job scrapes from testudo.umd.edu every few seconds. When a course opens, it sends you an email alert. This way, you don't have to refresh testudo all day. :) Use this time to do something productive, such as learn to program Elixir.</h4>
-<h4>This website is written on a sunny thursday afternoon as an attempt to learn the elixir programming language.</h4>
+<h4>Dropcatch courses before it gets filled from waitlist. Pretty sure it's not allowed.</h4>
+<h4>This website is written on a sunny thursday afternoon as an attempt to learn the elixir programming language. It should be functional by the time you are reading this.</h4>
 
 <script>
 var btn_logout = document.getElementById("btn-logout");

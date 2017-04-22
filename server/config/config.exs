@@ -7,6 +7,8 @@ use Mix.Config
 
 # General application configuration
 config :server,
+  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
+  mailgun_key: System.get_env("MAILGUN_KEY"),
   ecto_repos: [Server.Repo]
 
 # Configures the endpoint
@@ -34,8 +36,4 @@ config :addict,
   repo: Server.Repo,
   post_login: &(Server.UserActions.login/3),
   post_register: &(Server.UserActions.register/3),
-  extra_validation: &(Server.UserActions.validate/2),
-  from_email: "coursedrop@umd.fyi",
-  mailgun_domain: System.get_env("MAILGUN_DOMAIN"),
-  mailgun_key: System.get_env("MAILGUN_KEY"),
-  mail_service: :mailgun
+  extra_validation: &(Server.UserActions.validate/2)

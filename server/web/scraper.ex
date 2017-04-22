@@ -3,8 +3,8 @@ defmodule Server.PeriodicallyScrape do
   require Logger
   import Ecto.Query, only: [from: 2]
   alias Server.Repo
-  @config domain: Application.get_env(:addict, :mailgun_domain),
-          key: Application.get_env(:addict, :mailgun_key)
+  @config domain: Application.get_env(:server, :mailgun_domain),
+          key: Application.get_env(:server, :mailgun_key)
   use Mailgun.Client, @config
 
   def start_link do
@@ -20,7 +20,8 @@ defmodule Server.PeriodicallyScrape do
     HTTPoison.start
 
     query = from u in Server.Watcher,
-          select: u.course
+            select: u.course,
+            where: u.acknowledged == false and u.sent == false
     all_courses = Repo.all(query)
     scrape(all_courses)
 
@@ -85,6 +86,6 @@ defmodule Server.PeriodicallyScrape do
   end
 
   defp schedule_work() do
-    Process.send_after(self(), :work, 20* 1000) # In 2 seconds 
+    Process.send_after(self(), :work, 30 * 60 * 1000) # Every 30 minutes 
   end
 end

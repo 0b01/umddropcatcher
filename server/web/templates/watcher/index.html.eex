@@ -21,7 +21,7 @@
 
       <td class="text-right">
         <%= if not watcher.acknowledged do %>
-          <%= link "Acknowledge", to: watcher_path(@conn, :ack, watcher), class: "btn btn-default btn-xs btn-warning" %>
+          <%= link "Received", to: watcher_path(@conn, :ack, watcher), class: "btn btn-default btn-xs btn-warning" %>
         <% end %>
         <%= link "Edit", to: watcher_path(@conn, :edit, watcher), class: "btn btn-default btn-xs" %>
         <%= link "Delete", to: watcher_path(@conn, :delete, watcher), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %>
