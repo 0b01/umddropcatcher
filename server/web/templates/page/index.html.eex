@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <h2>UMD Course DropCatcher</h2>
-  <p class="lead">Get custom alerts when a spot opens up.</p>
+  <p class="lead">Because waitlists are too long</p>
   <%= if not @is_logged_in do %>
     <a href="/register"><button style="background: lightblue; width:100px; height:30px;">register</button></a>
     <a href="/login"><button style="background:hotpink; width:100px; height:30px;">login</button></a>
